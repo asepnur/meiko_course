@@ -63,3 +63,34 @@ type CourseConcise struct {
 	ID   int64  `db:"id"`
 	Name string `db:"name"`
 }
+
+type User struct {
+	ID           int64          `json:"id"`
+	Name         string         `json:"name"`
+	Email        string         `json:"email"`
+	Gender       int8           `json:"gender"`
+	Note         string         `json:"note"`
+	Status       int8           `json:"status"`
+	IdentityCode int64          `json:"identity_code"`
+	LineID       sql.NullString `json:"line_id"`
+	Phone        sql.NullString `json:"phone"`
+	RoleGroupsID sql.NullInt64  `json:"rolegroups_id"`
+}
+type UserReq struct {
+	ID           int64  `json:"id"`
+	Name         string `json:"name"`
+	Email        string `json:"email"`
+	Gender       int8   `json:"gender"`
+	Note         string `json:"note"`
+	Roles        int64  `json:"roles"`
+	IdentityCode int64  `json:"identity_code"`
+	LineID       string `json:"line_id"`
+	Phone        string `json:"phone"`
+	Status       int8   `json:"active"`
+}
+type UserHTTPResponse struct {
+	Message string    `json:"message,omitempty"`
+	Error   []string  `json:"error,omitempty"`
+	Code    int       `json:"code"`
+	Data    []UserReq `json:"data, omitempty"`
+}

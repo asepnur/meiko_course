@@ -77,6 +77,7 @@ func ListStudentHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 
 	args, err := params.validate()
 	if err != nil {
+
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusBadRequest).
 			AddError("Invalid Request"))
@@ -107,7 +108,7 @@ func ListStudentHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 		return
 	}
 
-	users, err := usr.SelectByID(studentID, true, usr.ColID, usr.ColName, usr.ColIdentityCode)
+	users, err := cs.RequestID(studentID, true)
 	if err != nil {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusInternalServerError))
@@ -581,7 +582,7 @@ func ReadMeetingDetailHandler(w http.ResponseWriter, r *http.Request, ps httprou
 		return
 	}
 
-	users, err := usr.SelectByID(usersID, true, usr.ColID, usr.ColIdentityCode, usr.ColName)
+	users, err := cs.RequestID(usersID, true)
 	if err != nil {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusInternalServerError))

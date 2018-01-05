@@ -1,9 +1,14 @@
 package course
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/asepnur/meiko_course/src/util/helper"
 
@@ -27,6 +32,55 @@ func SelectIDByUserID(userID int64, status ...int8) ([]int64, error) {
 	}
 
 	return scheduleID, nil
+}
+
+// RequestID ..
+func RequestID(id []int64, isSort bool, column ...string) ([]UserReq, error) {
+	var user []UserReq
+	data := url.Values{}
+	var ids []string
+	for _, val := range id {
+		ids = append(ids, fmt.Sprintf("%d", val))
+	}
+	reqIds := strings.Join(ids, "~")
+	data.Set("id", reqIds)
+	var sort = "0"
+	if isSort {
+		sort = "1"
+	}
+	data.Set("is_sort", sort)
+	params := data.Encode()
+	req, err := http.NewRequest("POST", "http://localhost:9000/api/v1/user/exhange-id", strings.NewReader(params))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Authorization", "abc")
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Content-Length", strconv.Itoa(len(params)))
+
+	client := http.Client{
+		Timeout: time.Second * 2,
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, nil
+	}
+	res := &UserHTTPResponse{}
+	err = json.Unmarshal(body, res)
+	if err != nil {
+		return user, err
+	}
+	if res == nil {
+		return nil, fmt.Errorf("Data nil")
+	}
+	usr := res.Data
+	return usr, nil
 }
 
 func SelectScheduleIDByUserID(userID int64, status ...int8) ([]int64, error) {

@@ -760,9 +760,10 @@ func GetAssistantHandler(w http.ResponseWriter, r *http.Request, ps httprouter.P
 		return
 	}
 
-	var users []user.User
+	var users []cs.UserReq
 	if len(uIDs) > 0 {
-		users, err = user.SelectByID(uIDs, false, user.ColEmail, user.ColPhone, user.ColName)
+
+		users, err = cs.RequestID(uIDs, false, user.ColEmail, user.ColPhone, user.ColName)
 		if err != nil {
 			template.RenderJSONResponse(w, new(template.Response).
 				SetCode(http.StatusInternalServerError))
@@ -788,19 +789,15 @@ func GetAssistantHandler(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	var thumb string
 	res := []getAssistantResponse{}
 	for _, val := range users {
-		phone := "-"
 		thumb = fl.UsrNoPhotoURL
 		if v, ok := tImg[strconv.FormatInt(val.ID, 10)]; ok {
 			thumb = fmt.Sprintf("/api/v1/file/profile/%s.%s", v.ID, v.Extension)
-		}
-		if val.Phone.Valid {
-			phone = val.Phone.String
 		}
 
 		res = append(res, getAssistantResponse{
 			Name:         val.Name,
 			Email:        val.Email,
-			Phone:        phone,
+			Phone:        val.Phone,
 			Roles:        "Assistant",
 			URLThumbnail: thumb,
 		})
@@ -995,7 +992,7 @@ func ListEnrolledHandler(w http.ResponseWriter, r *http.Request, ps httprouter.P
 		return
 	}
 
-	users, err := user.SelectByID(studentIDs, true, user.ColIdentityCode, user.ColName)
+	users, err := cs.RequestID(studentIDs, true)
 	if err != nil {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusInternalServerError))
