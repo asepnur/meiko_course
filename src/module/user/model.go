@@ -156,8 +156,13 @@ type ConciseUsers struct {
 }
 
 type UserHTTPResponseByScheduleID struct {
-	Message string   `json:"message,omitempty"`
-	Error   []string `json:"error,omitempty"`
-	Code    int      `json:"code"`
-	Data    []int64  `json:"data, omitempty"`
+	Message string           `json:"message,omitempty"`
+	Error   []string         `json:"error,omitempty"`
+	Code    int              `json:"code"`
+	Data    dataByScheduleID `json:"data, omitempty"`
+}
+
+type dataByScheduleID struct {
+	Total int     `json:"total"`
+	Data  []int64 `json:"schedule_id"`
 }

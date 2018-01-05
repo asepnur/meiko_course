@@ -954,7 +954,7 @@ func DetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	asgUser := []detAsgUser{}
 	var totalPg int
 	if assignment.Status == 0 {
-		total, err := usr.SelectCountByScheduleID(scheduleID)
+		ids, total, err := usr.SelectIDByScheduleID(scheduleID, args.total, offset, true)
 		if err != nil {
 			template.RenderJSONResponse(w, new(template.Response).
 				SetCode(http.StatusInternalServerError))
@@ -963,12 +963,6 @@ func DetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 		totalPg = total / asg.MaxPage
 		if total%asg.MaxPage > 0 {
 			totalPg++
-		}
-		ids, err := usr.SelectIDByScheduleID(scheduleID, args.total, offset)
-		if err != nil {
-			template.RenderJSONResponse(w, new(template.Response).
-				SetCode(http.StatusInternalServerError))
-			return
 		}
 		users, err := usr.SelectConciseUserByID(ids)
 		if err != nil {

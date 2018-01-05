@@ -766,16 +766,21 @@ func SelectIDByIdentityCode(identityCode []int64) ([]int64, error) {
 }
 
 // SelectIDByScheduleID ..
-func SelectIDByScheduleID(scheduleID int64, limit, offset int) ([]int64, error) {
-	var user []int64
+func SelectIDByScheduleID(scheduleID int64, limit, offset int, isCount bool) ([]int64, int, error) {
+	var total int
 	data := url.Values{}
 	data.Set("schedule_id", fmt.Sprintf("%d", scheduleID))
 	data.Set("limit", fmt.Sprintf("%d", limit))
 	data.Set("offset", fmt.Sprintf("%d", offset))
+	count := "0"
+	if isCount {
+		count = "1"
+	}
+	data.Set("count", count)
 	params := data.Encode()
 	req, err := http.NewRequest("POST", "http://localhost:9000/api/v1/user/schedule-id", strings.NewReader(params))
 	if err != nil {
-		return nil, err
+		return nil, total, err
 	}
 	req.Header.Add("Authorization", "abc")
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
@@ -786,24 +791,25 @@ func SelectIDByScheduleID(scheduleID int64, limit, offset int) ([]int64, error) 
 	}
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return nil, total, err
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, nil
+		return nil, total, nil
 	}
 	res := &UserHTTPResponseByScheduleID{}
 	err = json.Unmarshal(body, res)
 	if err != nil {
-		return user, err
+		return nil, total, err
 	}
 	if res == nil {
-		return nil, fmt.Errorf("Data null")
+		return nil, total, fmt.Errorf("Data null")
 	}
-	usr := res.Data
-	return usr, nil
+	usr := res.Data.Data
+	total = res.Data.Total
+	return usr, total, nil
 
 }
 
