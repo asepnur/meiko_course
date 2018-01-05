@@ -9,50 +9,14 @@ import (
 	"github.com/asepnur/meiko_course/src/webserver/handler/bot"
 	"github.com/asepnur/meiko_course/src/webserver/handler/course"
 	"github.com/asepnur/meiko_course/src/webserver/handler/file"
-	"github.com/asepnur/meiko_course/src/webserver/handler/information"
 	"github.com/asepnur/meiko_course/src/webserver/handler/place"
-	"github.com/asepnur/meiko_course/src/webserver/handler/rolegroup"
 	"github.com/asepnur/meiko_course/src/webserver/handler/tutorial"
-	"github.com/asepnur/meiko_course/src/webserver/handler/user"
+
 	"github.com/julienschmidt/httprouter"
 )
 
 // Load returns all routing of this server
 func loadRouter(r *httprouter.Router) {
-
-	// ========================== User Handler ==========================
-	// User section
-	r.POST("/api/v1/user/register", auth.OptionalAuthorize(user.SignUpHandler))
-	r.POST("/api/v1/user/verify", auth.OptionalAuthorize(user.EmailVerificationHandler))
-	r.POST("/api/v1/user/signin", auth.OptionalAuthorize(user.SignInHandler))
-	r.POST("/api/v1/user/forgot", auth.OptionalAuthorize(user.ForgotHandler))
-	r.POST("/api/v1/user/signout", auth.MustAuthorize(user.SignOutHandler)) // delete
-	r.POST("/api/v1/user/profile", auth.MustAuthorize(user.UpdateProfileHandler))
-	r.GET("/api/v1/user/profile", auth.MustAuthorize(user.GetProfileHandler))
-	r.POST("/api/v1/user/changepassword", auth.MustAuthorize(user.ChangePasswordHandler))
-
-	// Admin section
-	r.GET("/api/admin/v1/user", auth.MustAuthorize(user.ReadHandler))
-	r.POST("/api/admin/v1/user", auth.MustAuthorize(user.CreateHandler))
-	r.GET("/api/admin/v1/user/:id", auth.MustAuthorize(user.DetailHandler))
-	r.PATCH("/api/admin/v1/user/:id", auth.MustAuthorize(user.UpdateHandler))
-	r.PATCH("/api/admin/v1/user/:id/:status", auth.MustAuthorize(user.ActivationHandler))
-	r.DELETE("/api/admin/v1/user/:id", auth.MustAuthorize(user.DeleteHandler))
-
-	// Public
-	r.GET("/api/v1/util/time", user.GetTimeHandler)
-	// ======================== End User Handler ========================
-
-	// ======================== Rolegroup Handler =======================
-	// User Section
-	r.GET("/api/v1/role", auth.OptionalAuthorize(rolegroup.GetPrivilege))
-	// Admin section
-	r.GET("/api/admin/v1/role", auth.MustAuthorize(rolegroup.ReadHandler))
-	r.POST("/api/admin/v1/role", auth.MustAuthorize(rolegroup.CreateHandler))
-	r.GET("/api/admin/v1/role/:rolegroup_id", auth.MustAuthorize(rolegroup.ReadDetailHandler))
-	r.PATCH("/api/admin/v1/role/:rolegroup_id", auth.MustAuthorize(rolegroup.UpdateHandler))
-	r.DELETE("/api/admin/v1/role/:rolegroup_id", auth.MustAuthorize(rolegroup.DeleteHandler))
-	// ====================== End Rolegroup Handler =====================
 
 	// ========================== File Handler ==========================
 	r.GET("/api/v1/filerouter", auth.OptionalAuthorize(file.RouterFileHandler))
@@ -129,19 +93,6 @@ func loadRouter(r *httprouter.Router) {
 	r.GET("/api/v1/grade", auth.MustAuthorize(assignment.GetReportHandler))
 	// r.GET("/api/v1/grade/:id", auth.MustAuthorize(assignment.GradeBySchedule))
 	// ===================== End Assignment Handler =====================
-
-	// ======================= Information Handler ======================
-	// Admin section
-	r.POST("/api/admin/v1/information", auth.MustAuthorize(information.CreateHandler))                  // create infomation by admin
-	r.PATCH("/api/admin/v1/information/:id", auth.MustAuthorize(information.UpdateHandler))             // update infomation by admin
-	r.DELETE("/api/admin/v1/information/:id", auth.MustAuthorize(information.DeleteHandler))            // delete information by admin
-	r.GET("/api/admin/v1/information", auth.MustAuthorize(information.ReadHandler))                     // read list information by admin
-	r.GET("/api/admin/v1/information/:id", auth.MustAuthorize(information.GetDetailByAdminHandler))     // read detail information by admin
-	r.GET("/api/admin/v1/available-course", auth.MustAuthorize(information.AvailableCourseInformation)) // read detail information by admin
-	// User section
-	r.GET("/api/v1/information", auth.MustAuthorize(information.GetHandler))           // list informations
-	r.GET("/api/v1/information/:id", auth.MustAuthorize(information.GetDetailHandler)) // detail information
-	// ===================== End Information Handler ====================
 
 	// ========================== Place Handler =========================
 	// Public section
