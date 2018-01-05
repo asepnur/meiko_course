@@ -2,8 +2,13 @@ package user
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"math/rand"
+	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
 	"time"
 
@@ -762,25 +767,44 @@ func SelectIDByIdentityCode(identityCode []int64) ([]int64, error) {
 
 // SelectIDByScheduleID ..
 func SelectIDByScheduleID(scheduleID int64, limit, offset int) ([]int64, error) {
-	query := fmt.Sprintf(`
-		SELECT
-			users_id
-		FROM
-			p_users_schedules
-		WHERE
-			schedules_id = (%d)
-		ORDER BY 
-			users_id 
-		ASC
-		LIMIT %d
-		OFFSET %d;
-		`, scheduleID, limit, offset)
-	var result []int64
-	err := conn.DB.Select(&result, query)
+	var user []int64
+	data := url.Values{}
+	data.Set("schedule_id", fmt.Sprintf("%d", scheduleID))
+	data.Set("limit", fmt.Sprintf("%d", limit))
+	data.Set("offset", fmt.Sprintf("%d", offset))
+	params := data.Encode()
+	req, err := http.NewRequest("POST", "http://localhost:9000/api/v1/user/schedule-id", strings.NewReader(params))
 	if err != nil {
-		return result, err
+		return nil, err
 	}
-	return result, nil
+	req.Header.Add("Authorization", "abc")
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Content-Length", strconv.Itoa(len(params)))
+
+	client := http.Client{
+		Timeout: time.Second * 2,
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, nil
+	}
+	res := &UserHTTPResponseByScheduleID{}
+	err = json.Unmarshal(body, res)
+	if err != nil {
+		return user, err
+	}
+	if res == nil {
+		return nil, fmt.Errorf("Data null")
+	}
+	usr := res.Data
+	return usr, nil
+
 }
 
 // SelectCountByScheduleID ..

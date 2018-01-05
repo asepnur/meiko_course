@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	cs "github.com/asepnur/meiko_course/src/module/course"
-	usr "github.com/asepnur/meiko_course/src/module/user"
 	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
@@ -28,7 +27,7 @@ func initRgxAsistant() {
 		log.Fatalf("Bot init error: cannot get all assistant id")
 	}
 
-	user, err := cs.RequestID(userID, false, usr.ColName)
+	user, err := cs.RequestID(userID, false)
 	if err != nil {
 		log.Fatalf("Bot init error: cannot get all assistant name")
 	}

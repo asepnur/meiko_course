@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/asepnur/meiko_course/src/module/user"
 	"github.com/asepnur/meiko_course/src/util/conn"
 
 	"github.com/asepnur/meiko_course/src/util/helper"
@@ -16,7 +17,7 @@ import (
 	cs "github.com/asepnur/meiko_course/src/module/course"
 	fl "github.com/asepnur/meiko_course/src/module/file"
 	pl "github.com/asepnur/meiko_course/src/module/place"
-	"github.com/asepnur/meiko_course/src/module/user"
+
 	"github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
@@ -762,7 +763,7 @@ func GetAssistantHandler(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	var users []cs.UserReq
 	if len(uIDs) > 0 {
 
-		users, err = cs.RequestID(uIDs, false, user.ColEmail, user.ColPhone, user.ColName)
+		users, err = cs.RequestID(uIDs, false)
 		if err != nil {
 			template.RenderJSONResponse(w, new(template.Response).
 				SetCode(http.StatusInternalServerError))

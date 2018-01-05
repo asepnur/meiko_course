@@ -154,3 +154,10 @@ type ConciseUsers struct {
 	Name         string `db:"name"`
 	IdentityCode int64  `db:"identity_code"`
 }
+
+type UserHTTPResponseByScheduleID struct {
+	Message string   `json:"message,omitempty"`
+	Error   []string `json:"error,omitempty"`
+	Code    int      `json:"code"`
+	Data    []int64  `json:"data, omitempty"`
+}
