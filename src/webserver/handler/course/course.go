@@ -8,19 +8,19 @@ import (
 	"strings"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/conn"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 
+	ag "github.com/asepnur/meiko_course/src/module/assignment"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	fl "github.com/asepnur/meiko_course/src/module/file"
+	pl "github.com/asepnur/meiko_course/src/module/place"
+	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
+	"github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	ag "github.com/melodiez14/meiko/src/module/assignment"
-	cs "github.com/melodiez14/meiko/src/module/course"
-	fl "github.com/melodiez14/meiko/src/module/file"
-	pl "github.com/melodiez14/meiko/src/module/place"
-	rg "github.com/melodiez14/meiko/src/module/rolegroup"
-	"github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 // CreateHandler handles the http request for creating the course. Accessing this handler needs CREATE or XCREATE ability

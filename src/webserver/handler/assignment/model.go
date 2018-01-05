@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	fs "github.com/melodiez14/meiko/src/module/file"
+	fs "github.com/asepnur/meiko_course/src/module/file"
 )
 
 type getParams struct {

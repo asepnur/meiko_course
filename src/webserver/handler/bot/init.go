@@ -5,9 +5,9 @@ import (
 	"log"
 	"strings"
 
-	cs "github.com/melodiez14/meiko/src/module/course"
-	usr "github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/helper"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	usr "github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 // Init used to initialize the bot

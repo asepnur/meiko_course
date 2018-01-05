@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func (params detailInfromationParams) validate() (detailInfromationArgs, error) {

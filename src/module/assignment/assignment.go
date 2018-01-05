@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 
+	"github.com/asepnur/meiko_course/src/util/conn"
 	"github.com/jmoiron/sqlx"
-	"github.com/melodiez14/meiko/src/util/conn"
 )
 
 // GetByCourseID func ...

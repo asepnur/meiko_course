@@ -6,10 +6,10 @@ import (
 	"html"
 	"strconv"
 
-	"github.com/melodiez14/meiko/src/module/user"
+	"github.com/asepnur/meiko_course/src/module/user"
 
-	"github.com/melodiez14/meiko/src/util/alias"
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/alias"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 // Function to validate signUp parameter to be used

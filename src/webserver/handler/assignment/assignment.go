@@ -6,18 +6,18 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/conn"
 
+	asg "github.com/asepnur/meiko_course/src/module/assignment"
+	att "github.com/asepnur/meiko_course/src/module/attendance"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	fl "github.com/asepnur/meiko_course/src/module/file"
+	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
+	usr "github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/util/helper"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	asg "github.com/melodiez14/meiko/src/module/assignment"
-	att "github.com/melodiez14/meiko/src/module/attendance"
-	cs "github.com/melodiez14/meiko/src/module/course"
-	fl "github.com/melodiez14/meiko/src/module/file"
-	rg "github.com/melodiez14/meiko/src/module/rolegroup"
-	usr "github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/util/helper"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 // GetHandler ...

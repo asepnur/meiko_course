@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func Test_signUpParams_validate(t *testing.T) {

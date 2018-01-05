@@ -1,6 +1,6 @@
 package email
 
-import "github.com/melodiez14/meiko/src/util/alias"
+import "github.com/asepnur/meiko_course/src/util/alias"
 
 // SendEmailValidation is used for sending an email validation
 func SendEmailValidation(name, email string, code uint16) {

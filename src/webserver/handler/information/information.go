@@ -4,14 +4,14 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/melodiez14/meiko/src/webserver/template"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 
+	"github.com/asepnur/meiko_course/src/module/course"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	inf "github.com/asepnur/meiko_course/src/module/information"
+	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
+	"github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/julienschmidt/httprouter"
-	"github.com/melodiez14/meiko/src/module/course"
-	cs "github.com/melodiez14/meiko/src/module/course"
-	inf "github.com/melodiez14/meiko/src/module/information"
-	rg "github.com/melodiez14/meiko/src/module/rolegroup"
-	"github.com/melodiez14/meiko/src/util/auth"
 )
 
 // GetHandler ...

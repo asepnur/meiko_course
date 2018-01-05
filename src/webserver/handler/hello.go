@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 func HelloHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

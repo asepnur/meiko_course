@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/conn"
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 //SelectByScheduleID func ...

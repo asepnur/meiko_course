@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	asg "github.com/melodiez14/meiko/src/module/assignment"
-	fl "github.com/melodiez14/meiko/src/module/file"
-	"github.com/melodiez14/meiko/src/util/helper"
+	asg "github.com/asepnur/meiko_course/src/module/assignment"
+	fl "github.com/asepnur/meiko_course/src/module/file"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func (params getParams) validate() (getArgs, error) {

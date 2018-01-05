@@ -5,17 +5,20 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 
+	"github.com/asepnur/meiko_course/src/util/conn"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/garyburd/redigo/redis"
 	"github.com/julienschmidt/httprouter"
-	"github.com/melodiez14/meiko/src/util/conn"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 type (
@@ -82,27 +85,44 @@ func OptionalAuthorize(h httprouter.Handle) httprouter.Handle {
 func getUserInfo(session string) (*User, error) {
 
 	session = strings.Trim(session, " ")
-	client := conn.Redis.Get()
-	defer client.Close()
+	data := url.Values{}
+	data.Set("cookie", session)
 
-	key := sessionPrefix + session
-	jsd, err := redis.String(client.Do("GET", key))
-
-	if err != nil && err != redis.ErrNil {
-		return nil, err
-	}
-
-	res := &User{}
-	err = json.Unmarshal([]byte(jsd), res)
+	params := data.Encode()
+	req, err := http.NewRequest("POST", "http://localhost:9000/api/v1/user/exhange-profile", strings.NewReader(params))
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Add("Authorization", "abc")
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Content-Length", strconv.Itoa(len(params)))
 
+	client := http.Client{
+		Timeout: time.Second * 2,
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, nil
+	}
+
+	res := &SessionHTTPResponse{}
+	err = json.Unmarshal(body, res)
+	if err != nil {
+		return nil, err
+	}
 	if res == nil {
 		return nil, errSessionNotlogin
 	}
 
-	return res, nil
+	usr := &res.Data
+	return usr, nil
 }
 
 // DestroySession is used for destroying logged in user session

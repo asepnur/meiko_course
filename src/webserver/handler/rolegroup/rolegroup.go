@@ -4,13 +4,13 @@ import (
 	"database/sql"
 	"net/http"
 
+	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
+	usr "github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/helper"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	rg "github.com/melodiez14/meiko/src/module/rolegroup"
-	usr "github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/util/conn"
-	"github.com/melodiez14/meiko/src/util/helper"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 // GetPrivilege handles the http request for getting the list of user privilege and access to listed modules

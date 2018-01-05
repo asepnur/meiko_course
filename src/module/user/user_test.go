@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/conn"
 	"gopkg.in/DATA-DOG/go-sqlmock.v1"
 )
 

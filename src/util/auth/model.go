@@ -12,3 +12,10 @@ type User struct {
 	Phone        string              `json:"phone"`
 	Status       int8                `json:"active"`
 }
+
+type SessionHTTPResponse struct {
+	Message string   `json:"message,omitempty"`
+	Error   []string `json:"error,omitempty"`
+	Code    int      `json:"code"`
+	Data    User     `json:"data, omitempty"`
+}

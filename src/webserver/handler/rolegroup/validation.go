@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	rg "github.com/melodiez14/meiko/src/module/rolegroup"
-	"github.com/melodiez14/meiko/src/util/helper"
+	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func (params createParams) validate() (createArgs, error) {

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/melodiez14/meiko/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/conn"
 )
 
 func Get(userID int64, page uint16, limit uint8) ([]Notification, error) {

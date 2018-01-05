@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/melodiez14/meiko/src/util/alias"
+	"github.com/asepnur/meiko_course/src/util/alias"
 )
 
 // IsAlpha Check if string given alphabet only

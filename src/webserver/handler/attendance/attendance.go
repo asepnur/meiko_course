@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 
+	atd "github.com/asepnur/meiko_course/src/module/attendance"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
+	usr "github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/util/conn"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	atd "github.com/melodiez14/meiko/src/module/attendance"
-	cs "github.com/melodiez14/meiko/src/module/course"
-	rg "github.com/melodiez14/meiko/src/module/rolegroup"
-	usr "github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/util/conn"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 func GetSummaryHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

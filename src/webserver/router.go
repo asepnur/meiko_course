@@ -3,18 +3,18 @@ package webserver
 import (
 	"net/http"
 
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/webserver/handler/assignment"
+	"github.com/asepnur/meiko_course/src/webserver/handler/attendance"
+	"github.com/asepnur/meiko_course/src/webserver/handler/bot"
+	"github.com/asepnur/meiko_course/src/webserver/handler/course"
+	"github.com/asepnur/meiko_course/src/webserver/handler/file"
+	"github.com/asepnur/meiko_course/src/webserver/handler/information"
+	"github.com/asepnur/meiko_course/src/webserver/handler/place"
+	"github.com/asepnur/meiko_course/src/webserver/handler/rolegroup"
+	"github.com/asepnur/meiko_course/src/webserver/handler/tutorial"
+	"github.com/asepnur/meiko_course/src/webserver/handler/user"
 	"github.com/julienschmidt/httprouter"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/webserver/handler/assignment"
-	"github.com/melodiez14/meiko/src/webserver/handler/attendance"
-	"github.com/melodiez14/meiko/src/webserver/handler/bot"
-	"github.com/melodiez14/meiko/src/webserver/handler/course"
-	"github.com/melodiez14/meiko/src/webserver/handler/file"
-	"github.com/melodiez14/meiko/src/webserver/handler/information"
-	"github.com/melodiez14/meiko/src/webserver/handler/place"
-	"github.com/melodiez14/meiko/src/webserver/handler/rolegroup"
-	"github.com/melodiez14/meiko/src/webserver/handler/tutorial"
-	"github.com/melodiez14/meiko/src/webserver/handler/user"
 )
 
 // Load returns all routing of this server

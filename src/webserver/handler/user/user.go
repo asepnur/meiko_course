@@ -5,17 +5,17 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 
 	"database/sql"
 
+	"github.com/asepnur/meiko_course/src/email"
+	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
+	"github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/alias"
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	"github.com/melodiez14/meiko/src/email"
-	rg "github.com/melodiez14/meiko/src/module/rolegroup"
-	"github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/alias"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 // SignUpHandler handles the http request for first registration process

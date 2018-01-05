@@ -6,10 +6,10 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/melodiez14/meiko/src/module/bot"
-	cs "github.com/melodiez14/meiko/src/module/course"
-	fl "github.com/melodiez14/meiko/src/module/file"
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/module/bot"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	fl "github.com/asepnur/meiko_course/src/module/file"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func handleAssistant(text string, userID int64) ([]map[string]interface{}, error) {

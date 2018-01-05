@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/asepnur/meiko_course/src/module/bot"
+	"github.com/asepnur/meiko_course/src/module/log"
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/util/conn"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	"github.com/melodiez14/meiko/src/module/bot"
-	"github.com/melodiez14/meiko/src/module/log"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/util/conn"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 func BotHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

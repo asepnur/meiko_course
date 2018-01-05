@@ -3,8 +3,8 @@ package course
 import (
 	"fmt"
 
-	cs "github.com/melodiez14/meiko/src/module/course"
-	"github.com/melodiez14/meiko/src/util/helper"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func getLast(userID int64) ([]getResponse, error) {

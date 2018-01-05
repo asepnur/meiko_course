@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/melodiez14/meiko/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/conn"
 
-	asg "github.com/melodiez14/meiko/src/module/assignment"
-	cs "github.com/melodiez14/meiko/src/module/course"
-	fl "github.com/melodiez14/meiko/src/module/file"
-	"github.com/melodiez14/meiko/src/util/helper"
+	asg "github.com/asepnur/meiko_course/src/module/assignment"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	fl "github.com/asepnur/meiko_course/src/module/file"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func handleSubmitInsert(id, userID int64, desc sql.NullString, fileID []string) error {

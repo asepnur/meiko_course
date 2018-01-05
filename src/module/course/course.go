@@ -5,12 +5,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 
 	"database/sql"
 
+	"github.com/asepnur/meiko_course/src/util/conn"
 	"github.com/jmoiron/sqlx"
-	"github.com/melodiez14/meiko/src/util/conn"
 )
 
 func SelectIDByUserID(userID int64, status ...int8) ([]int64, error) {

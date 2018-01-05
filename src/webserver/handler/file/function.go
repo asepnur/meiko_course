@@ -11,12 +11,12 @@ import (
 	"strconv"
 	"time"
 
-	asg "github.com/melodiez14/meiko/src/module/assignment"
-	cs "github.com/melodiez14/meiko/src/module/course"
-	fl "github.com/melodiez14/meiko/src/module/file"
-	usr "github.com/melodiez14/meiko/src/module/user"
-	"github.com/melodiez14/meiko/src/util/alias"
-	"github.com/melodiez14/meiko/src/util/helper"
+	asg "github.com/asepnur/meiko_course/src/module/assignment"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	fl "github.com/asepnur/meiko_course/src/module/file"
+	usr "github.com/asepnur/meiko_course/src/module/user"
+	"github.com/asepnur/meiko_course/src/util/alias"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func handleSingleWithMeta(payload, filename string, w http.ResponseWriter) error {

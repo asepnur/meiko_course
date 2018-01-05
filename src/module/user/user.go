@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 
-	"github.com/melodiez14/meiko/src/util/conn"
+	"github.com/asepnur/meiko_course/src/util/conn"
 )
 
 // SelectByID function for check in database to get user information from database using user ID

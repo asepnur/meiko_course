@@ -3,9 +3,9 @@ package place
 import (
 	"net/http"
 
+	pl "github.com/asepnur/meiko_course/src/module/place"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	pl "github.com/melodiez14/meiko/src/module/place"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 func SearchHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

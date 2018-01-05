@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/melodiez14/meiko/src/util/helper"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func (params listStudentParams) validate() (listStudentArgs, error) {

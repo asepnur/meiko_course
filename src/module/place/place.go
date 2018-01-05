@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/asepnur/meiko_course/src/util/conn"
 	"github.com/jmoiron/sqlx"
-	"github.com/melodiez14/meiko/src/util/conn"
 )
 
 func Search(id string) ([]string, error) {

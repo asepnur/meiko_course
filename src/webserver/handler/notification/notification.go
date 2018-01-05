@@ -3,10 +3,10 @@ package notification
 import (
 	"net/http"
 
+	"github.com/asepnur/meiko_course/src/module/notification"
+	"github.com/asepnur/meiko_course/src/util/auth"
+	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
-	"github.com/melodiez14/meiko/src/module/notification"
-	"github.com/melodiez14/meiko/src/util/auth"
-	"github.com/melodiez14/meiko/src/webserver/template"
 )
 
 func GetHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	cs "github.com/melodiez14/meiko/src/module/course"
-	"github.com/melodiez14/meiko/src/util/helper"
+	cs "github.com/asepnur/meiko_course/src/module/course"
+	"github.com/asepnur/meiko_course/src/util/helper"
 )
 
 func (params readParams) validate() (readArgs, error) {
