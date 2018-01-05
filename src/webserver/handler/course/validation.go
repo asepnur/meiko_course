@@ -610,3 +610,37 @@ func (params enrollRequestParams) validate() (enrollRequestArgs, error) {
 		scheduleID: scheduleID,
 	}, nil
 }
+
+func (params exchangeInvolvedParams) validate() (exchangeInvolvedArgs, error) {
+	var args exchangeInvolvedArgs
+
+	userID, err := strconv.ParseInt(params.userID, 10, 64)
+	if err != nil {
+		return args, err
+	}
+
+	return exchangeInvolvedArgs{
+		userID: userID,
+		role:   params.role,
+	}, nil
+}
+
+func (params exchangeByScheduleParams) validate() (exchangeByScheduleArgs, error) {
+	var args exchangeByScheduleArgs
+
+	userID, err := strconv.ParseInt(params.userID, 10, 64)
+	if err != nil {
+		return args, err
+	}
+
+	scheduleID, err := strconv.ParseInt(params.scheduleID, 10, 64)
+	if err != nil {
+		return args, err
+	}
+
+	return exchangeByScheduleArgs{
+		userID:     userID,
+		scheduleID: scheduleID,
+		role:       params.role,
+	}, nil
+}

@@ -308,3 +308,61 @@ type enrollRequestArgs struct {
 	scheduleID int64
 	payload    string
 }
+
+type exchangeInvolvedParams struct {
+	userID string
+	role   string
+}
+
+type exchangeInvolvedArgs struct {
+	userID int64
+	role   string
+}
+
+type exchangeInvolvedResponse struct {
+	Course   course   `json:"course"`
+	Schedule schedule `json:"schedule"`
+}
+
+type exchangeByScheduleParams struct {
+	userID     string
+	role       string
+	scheduleID string
+}
+
+type exchangeByScheduleArgs struct {
+	userID     int64
+	role       string
+	scheduleID int64
+}
+
+type exchangeByScheduleResponse struct {
+	Involved bool            `json:"involved"`
+	Course   *courseSchedule `json:"course, omitempty"`
+}
+
+type course struct {
+	ID          string         `json:"id"`
+	Name        string         `json:"name"`
+	Description sql.NullString `json:"description"`
+	UCU         int8           `json:"ucu"`
+}
+
+type schedule struct {
+	ID        int64  `json:"id"`
+	Status    int8   `json:"status"`
+	StartTime uint16 `json:"start_time"`
+	EndTime   uint16 `json:"end_time"`
+	Day       int8   `json:"day"`
+	Class     string `json:"class"`
+	Semester  int8   `json:"semester"`
+	Year      int16  `json:"year"`
+	CourseID  string `json:"courses_id"`
+	PlaceID   string `json:"places_id"`
+	CreatedBy int64  `json:"created_by"`
+}
+
+type courseSchedule struct {
+	Course   course   `json:"course"`
+	Schedule schedule `json:"schedule"`
+}

@@ -1232,3 +1232,146 @@ func EnrollRequestHandler(w http.ResponseWriter, r *http.Request, ps httprouter.
 		SetMessage("Success"))
 	return
 }
+
+func ExchangeInvolvedHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	params := exchangeInvolvedParams{
+		userID: r.FormValue("user_id"),
+		role:   r.FormValue("role"),
+	}
+
+	args, err := params.validate()
+	if err != nil {
+		template.RenderJSONResponse(w, new(template.Response).
+			SetCode(http.StatusBadRequest).
+			AddError("Invalid Request"))
+		return
+	}
+
+	var status int8
+	switch args.role {
+	case "assistant":
+		status = cs.PStatusAssistant
+	case "student":
+		status = cs.PStatusStudent
+	default:
+		template.RenderJSONResponse(w, new(template.Response).
+			SetCode(http.StatusBadRequest).
+			AddError("Invalid Request"))
+		return
+	}
+
+	scheduleID, err := cs.SelectScheduleIDByUserID(args.userID, status)
+	if err != nil {
+		template.RenderJSONResponse(w, new(template.Response).
+			SetCode(http.StatusInternalServerError))
+		return
+	}
+
+	courses, err := cs.SelectByScheduleID(scheduleID, cs.StatusScheduleActive)
+	if err != nil {
+		template.RenderJSONResponse(w, new(template.Response).
+			SetCode(http.StatusInternalServerError))
+		return
+	}
+
+	resp := []exchangeInvolvedResponse{}
+	for _, val := range courses {
+		resp = append(resp, exchangeInvolvedResponse{
+			Course: course{
+				ID:          val.Course.ID,
+				Name:        val.Course.Name,
+				UCU:         val.Course.UCU,
+				Description: val.Course.Description,
+			},
+			Schedule: schedule{
+				ID:        val.Schedule.ID,
+				Class:     val.Schedule.Class,
+				CourseID:  val.Schedule.CourseID,
+				CreatedBy: val.Schedule.CreatedBy,
+				Day:       val.Schedule.Day,
+				EndTime:   val.Schedule.EndTime,
+				PlaceID:   val.Schedule.PlaceID,
+				Semester:  val.Schedule.Semester,
+				StartTime: val.Schedule.StartTime,
+				Status:    val.Schedule.Status,
+				Year:      val.Schedule.Year,
+			},
+		})
+	}
+
+	template.RenderJSONResponse(w, new(template.Response).
+		SetData(resp).
+		SetCode(http.StatusOK))
+	return
+}
+
+func ExchangeByScheduleHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	params := exchangeByScheduleParams{
+		userID:     r.FormValue("user_id"),
+		role:       r.FormValue("role"),
+		scheduleID: r.FormValue("schedule_id"),
+	}
+
+	args, err := params.validate()
+	if err != nil {
+		template.RenderJSONResponse(w, new(template.Response).
+			SetCode(http.StatusBadRequest).
+			AddError("Invalid Request"))
+		return
+	}
+
+	isInvolved := false
+	switch args.role {
+	case "assistant":
+		isInvolved = cs.IsAssistant(args.userID, args.scheduleID)
+	case "student":
+		isInvolved = cs.IsEnrolled(args.userID, args.scheduleID)
+	}
+
+	resp := exchangeByScheduleResponse{
+		Involved: isInvolved,
+	}
+
+	if !isInvolved {
+		template.RenderJSONResponse(w, new(template.Response).
+			SetData(resp).
+			SetCode(http.StatusOK))
+		return
+	}
+
+	c, err := cs.GetByScheduleID(args.scheduleID)
+	if err != nil {
+		template.RenderJSONResponse(w, new(template.Response).
+			SetCode(http.StatusInternalServerError))
+		return
+	}
+
+	resp.Course = &courseSchedule{
+		Course: course{
+			ID:          c.Course.ID,
+			Name:        c.Course.Name,
+			UCU:         c.Course.UCU,
+			Description: c.Course.Description,
+		},
+		Schedule: schedule{
+			ID:        c.Schedule.ID,
+			Class:     c.Schedule.Class,
+			CourseID:  c.Schedule.CourseID,
+			CreatedBy: c.Schedule.CreatedBy,
+			Day:       c.Schedule.Day,
+			EndTime:   c.Schedule.EndTime,
+			PlaceID:   c.Schedule.PlaceID,
+			Semester:  c.Schedule.Semester,
+			StartTime: c.Schedule.StartTime,
+			Status:    c.Schedule.Status,
+			Year:      c.Schedule.Year,
+		},
+	}
+
+	template.RenderJSONResponse(w, new(template.Response).
+		SetData(resp).
+		SetCode(http.StatusOK))
+	return
+}
