@@ -964,7 +964,7 @@ func DetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 		if total%asg.MaxPage > 0 {
 			totalPg++
 		}
-		users, err := usr.SelectConciseUserByID(ids)
+		users, err := cs.RequestID(ids, true)
 		if err != nil {
 			template.RenderJSONResponse(w, new(template.Response).
 				SetCode(http.StatusInternalServerError))
