@@ -14,6 +14,7 @@ import (
 	asg "github.com/asepnur/meiko_course/src/module/assignment"
 	cs "github.com/asepnur/meiko_course/src/module/course"
 	fl "github.com/asepnur/meiko_course/src/module/file"
+	usr "github.com/asepnur/meiko_course/src/module/user"
 	"github.com/asepnur/meiko_course/src/util/alias"
 	"github.com/asepnur/meiko_course/src/util/helper"
 )
@@ -125,7 +126,7 @@ func handleUserAssignment(userID, assignmentID int64, w http.ResponseWriter) err
 		studentsID = append(studentsID, val.UserID)
 	}
 
-	users, err := cs.RequestID(studentsID, false)
+	users, err := usr.RequestID(studentsID, false)
 	if err != nil {
 		return err
 	}

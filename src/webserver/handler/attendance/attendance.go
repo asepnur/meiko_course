@@ -107,7 +107,7 @@ func ListStudentHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 		return
 	}
 
-	users, err := cs.RequestID(studentID, true)
+	users, err := usr.RequestID(studentID, true)
 	if err != nil {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusInternalServerError))
@@ -200,6 +200,7 @@ func CreateMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.
 	}
 
 	if countEnrolled != len(args.userIdentityCodes) {
+		fmt.Println(countEnrolled, "--", len(args.userIdentityCodes))
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusBadRequest).
 			AddError("Invalid request"))
@@ -581,7 +582,7 @@ func ReadMeetingDetailHandler(w http.ResponseWriter, r *http.Request, ps httprou
 		return
 	}
 
-	users, err := cs.RequestID(usersID, true)
+	users, err := usr.RequestID(usersID, true)
 	if err != nil {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusInternalServerError))

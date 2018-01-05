@@ -964,7 +964,7 @@ func DetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 		if total%asg.MaxPage > 0 {
 			totalPg++
 		}
-		users, err := cs.RequestID(ids, true)
+		users, err := usr.RequestID(ids, true)
 		if err != nil {
 			template.RenderJSONResponse(w, new(template.Response).
 				SetCode(http.StatusInternalServerError))
@@ -1003,7 +1003,7 @@ func DetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 			for _, val := range sbmtdAsg {
 				usersID = append(usersID, val.UserID)
 			}
-			users, err := usr.SelectConciseUserByID(usersID)
+			users, err := usr.RequestID(usersID, false)
 			if err != nil {
 				template.RenderJSONResponse(w, new(template.Response).
 					SetCode(http.StatusInternalServerError))

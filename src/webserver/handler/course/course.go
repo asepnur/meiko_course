@@ -17,6 +17,7 @@ import (
 	cs "github.com/asepnur/meiko_course/src/module/course"
 	fl "github.com/asepnur/meiko_course/src/module/file"
 	pl "github.com/asepnur/meiko_course/src/module/place"
+	usr "github.com/asepnur/meiko_course/src/module/user"
 
 	"github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/asepnur/meiko_course/src/webserver/template"
@@ -760,10 +761,10 @@ func GetAssistantHandler(w http.ResponseWriter, r *http.Request, ps httprouter.P
 		return
 	}
 
-	var users []cs.UserReq
+	var users []usr.UserReq
 	if len(uIDs) > 0 {
 
-		users, err = cs.RequestID(uIDs, false)
+		users, err = usr.RequestID(uIDs, false)
 		if err != nil {
 			template.RenderJSONResponse(w, new(template.Response).
 				SetCode(http.StatusInternalServerError))
@@ -992,7 +993,7 @@ func ListEnrolledHandler(w http.ResponseWriter, r *http.Request, ps httprouter.P
 		return
 	}
 
-	users, err := cs.RequestID(studentIDs, true)
+	users, err := usr.RequestID(studentIDs, true)
 	if err != nil {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusInternalServerError))
