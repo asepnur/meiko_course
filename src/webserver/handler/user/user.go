@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	auth "github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/asepnur/meiko_course/src/util/helper"
 
 	"database/sql"
@@ -13,7 +14,6 @@ import (
 	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
 	"github.com/asepnur/meiko_course/src/module/user"
 	"github.com/asepnur/meiko_course/src/util/alias"
-	"github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/asepnur/meiko_course/src/webserver/template"
 	"github.com/julienschmidt/httprouter"
 )
@@ -201,7 +201,7 @@ func ReadHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	sess := r.Context().Value("User").(*auth.User)
 
-	if !sess.IsHasRoles(rg.ModuleUser, rg.RoleRead, rg.RoleXRead) {
+	if !sess.IsHasRoles(auth.ModuleUser, auth.RoleRead, auth.RoleXRead) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -284,7 +284,7 @@ func ActivationHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 
 	sess := r.Context().Value("User").(*auth.User)
 
-	if !sess.IsHasRoles(rg.ModuleUser, rg.RoleUpdate, rg.RoleXUpdate) {
+	if !sess.IsHasRoles(auth.ModuleUser, auth.RoleUpdate, auth.RoleXUpdate) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -1100,7 +1100,7 @@ func DeleteHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 func CreateHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleUser, rg.RoleCreate, rg.RoleXCreate) {
+	if !sess.IsHasRoles(auth.ModuleUser, auth.RoleCreate, auth.RoleXCreate) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))

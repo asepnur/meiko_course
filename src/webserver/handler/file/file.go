@@ -17,7 +17,6 @@ import (
 
 	cs "github.com/asepnur/meiko_course/src/module/course"
 	fl "github.com/asepnur/meiko_course/src/module/file"
-	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
 	tt "github.com/asepnur/meiko_course/src/module/tutorial"
 	"github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/asepnur/meiko_course/src/util/helper"
@@ -215,7 +214,7 @@ func UploadFileHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 	case "assignment":
 		if args.role == "assistant" {
 			typ = fl.TypAssignment
-			isHasAccess = sess.IsHasRoles(rg.ModuleAssignment, rg.RoleXCreate, rg.RoleCreate, rg.RoleXUpdate, rg.RoleUpdate)
+			isHasAccess = sess.IsHasRoles(auth.ModuleAssignment, auth.RoleXCreate, auth.RoleCreate, auth.RoleXUpdate, auth.RoleUpdate)
 		} else if args.role == "student" {
 			// please verify file size
 			typ = fl.TypAssignmentUpload
@@ -228,7 +227,7 @@ func UploadFileHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 	case "tutorial":
 		if args.role == "assistant" {
 			typ = fl.TypTutorial
-			isHasAccess = sess.IsHasRoles(rg.ModuleTutorial, rg.RoleXCreate, rg.RoleCreate, rg.RoleXUpdate, rg.RoleUpdate)
+			isHasAccess = sess.IsHasRoles(auth.ModuleTutorial, auth.RoleXCreate, auth.RoleCreate, auth.RoleXUpdate, auth.RoleUpdate)
 		}
 	}
 
@@ -296,7 +295,7 @@ func RouterFileHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 		}
 		switch args.role {
 		case "assistant":
-			if !sess.IsHasRoles(rg.ModuleTutorial, rg.RoleXRead, rg.RoleRead) || !cs.IsAssistant(sess.ID, tutorial.ScheduleID) {
+			if !sess.IsHasRoles(auth.ModuleTutorial, auth.RoleXRead, auth.RoleRead) || !cs.IsAssistant(sess.ID, tutorial.ScheduleID) {
 				http.Redirect(w, r, fl.NotFoundURL, http.StatusSeeOther)
 				return
 			}
@@ -310,7 +309,7 @@ func RouterFileHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 		typ = fl.TypTutorial
 	case "assignment":
 		if args.role == "assistant" {
-			if sess.IsHasRoles(rg.ModuleAssignment, rg.RoleXRead, rg.RoleRead) {
+			if sess.IsHasRoles(auth.ModuleAssignment, auth.RoleXRead, auth.RoleRead) {
 				err = handleUserAssignment(sess.ID, args.id, w)
 				if err != nil {
 					http.Redirect(w, r, fl.NotFoundURL, http.StatusSeeOther)
@@ -533,7 +532,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 // AvailableTypes ..
 func AvailableTypes(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleAssignment, rg.RoleXCreate, rg.RoleCreate) {
+	if !sess.IsHasRoles(auth.ModuleAssignment, auth.RoleXCreate, auth.RoleCreate) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))

@@ -8,7 +8,6 @@ import (
 
 	atd "github.com/asepnur/meiko_course/src/module/attendance"
 	cs "github.com/asepnur/meiko_course/src/module/course"
-	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
 	usr "github.com/asepnur/meiko_course/src/module/user"
 	"github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/asepnur/meiko_course/src/util/conn"
@@ -63,7 +62,7 @@ func GetSummaryHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 func ListStudentHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleAttendance, rg.RoleXRead, rg.RoleRead) && !sess.IsHasRoles(rg.ModuleUser, rg.RoleXRead, rg.RoleRead) {
+	if !sess.IsHasRoles(auth.ModuleAttendance, auth.RoleXRead, auth.RoleRead) && !sess.IsHasRoles(auth.ModuleUser, auth.RoleXRead, auth.RoleRead) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -133,7 +132,7 @@ func ListStudentHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 // CreateMeetingHandler ...
 func CreateMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleAttendance, rg.RoleXCreate, rg.RoleCreate) {
+	if !sess.IsHasRoles(auth.ModuleAttendance, auth.RoleXCreate, auth.RoleCreate) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -235,7 +234,7 @@ func CreateMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.
 // UpdateMeetingHandler ...
 func UpdateMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleAttendance, rg.RoleXUpdate, rg.RoleUpdate) {
+	if !sess.IsHasRoles(auth.ModuleAttendance, auth.RoleXUpdate, auth.RoleUpdate) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -386,7 +385,7 @@ func UpdateMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.
 // DeleteMeetingHandler ...
 func DeleteMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleAttendance, rg.RoleXDelete, rg.RoleDelete) {
+	if !sess.IsHasRoles(auth.ModuleAttendance, auth.RoleXDelete, auth.RoleDelete) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -458,7 +457,7 @@ func DeleteMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.
 // ReadMeetingHandler ...
 func ReadMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleAttendance, rg.RoleXRead, rg.RoleRead) {
+	if !sess.IsHasRoles(auth.ModuleAttendance, auth.RoleXRead, auth.RoleRead) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -541,7 +540,7 @@ func ReadMeetingHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 
 func ReadMeetingDetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleAttendance, rg.RoleXRead, rg.RoleRead) {
+	if !sess.IsHasRoles(auth.ModuleAttendance, auth.RoleXRead, auth.RoleRead) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))

@@ -8,7 +8,6 @@ import (
 
 	cs "github.com/asepnur/meiko_course/src/module/course"
 	fl "github.com/asepnur/meiko_course/src/module/file"
-	rg "github.com/asepnur/meiko_course/src/module/rolegroup"
 	tt "github.com/asepnur/meiko_course/src/module/tutorial"
 	"github.com/asepnur/meiko_course/src/util/auth"
 	"github.com/asepnur/meiko_course/src/util/conn"
@@ -48,7 +47,7 @@ func ReadHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	switch args.payload {
 	case "assistant":
 		isHasAccess = cs.IsAssistant(sess.ID, args.scheduleID) &&
-			sess.IsHasRoles(rg.ModuleTutorial, rg.RoleXRead, rg.RoleRead)
+			sess.IsHasRoles(auth.ModuleTutorial, auth.RoleXRead, auth.RoleRead)
 	case "student":
 		isHasAccess = cs.IsEnrolled(sess.ID, args.scheduleID)
 	}
@@ -126,7 +125,7 @@ func ReadHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 func ReadDetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleTutorial, rg.RoleXRead, rg.RoleRead) {
+	if !sess.IsHasRoles(auth.ModuleTutorial, auth.RoleXRead, auth.RoleRead) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -182,7 +181,7 @@ func ReadDetailHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 func CreateHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleTutorial, rg.RoleXCreate, rg.RoleCreate) {
+	if !sess.IsHasRoles(auth.ModuleTutorial, auth.RoleXCreate, auth.RoleCreate) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -255,7 +254,7 @@ func CreateHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 func DeleteHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleTutorial, rg.RoleXDelete, rg.RoleDelete) {
+	if !sess.IsHasRoles(auth.ModuleTutorial, auth.RoleXDelete, auth.RoleDelete) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
@@ -320,7 +319,7 @@ func DeleteHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 func UpdateHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	sess := r.Context().Value("User").(*auth.User)
-	if !sess.IsHasRoles(rg.ModuleTutorial, rg.RoleXDelete, rg.RoleDelete) {
+	if !sess.IsHasRoles(auth.ModuleTutorial, auth.RoleXDelete, auth.RoleDelete) {
 		template.RenderJSONResponse(w, new(template.Response).
 			SetCode(http.StatusForbidden).
 			AddError("You don't have privilege"))
