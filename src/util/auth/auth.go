@@ -125,6 +125,19 @@ func getUserInfo(session string) (*User, error) {
 	return usr, nil
 }
 
+func Oauth(h httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		token := r.Header.Get("Authorization")
+		if token != "abc" {
+			template.RenderJSONResponse(w, new(template.Response).
+				SetCode(http.StatusForbidden).
+				AddError("Invalid Session"))
+			return
+		}
+		h(w, r, ps)
+	}
+}
+
 // DestroySession is used for destroying logged in user session
 func (u User) DestroySession(r *http.Request) (*http.Cookie, error) {
 	cookie, _ := r.Cookie(c.SessionKey)

@@ -146,7 +146,6 @@ func loadRouter(r *httprouter.Router) {
 	r.GET("/api/v1/place/search", place.SearchHandler)
 	// ======================== End Place Handler =======================
 
-	r.POST("/api/internal/v1/course/getall", auth.MustAuthorize(course.ExchangeInvolvedHandler))
-	r.POST("/api/internal/v1/course/getone", auth.MustAuthorize(course.ExchangeByScheduleHandler))
-
+	r.POST("/api/internal/v1/course/getall", auth.Oauth(course.ExchangeInvolvedHandler))
+	r.POST("/api/internal/v1/course/getone", auth.Oauth(course.ExchangeByScheduleHandler))
 }
