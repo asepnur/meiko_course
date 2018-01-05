@@ -287,7 +287,7 @@ func GetDetailByAdminHandler(w http.ResponseWriter, r *http.Request, ps httprout
 	}
 	id := res.ScheduleID.Int64
 	desc := "-"
-	courseName := ""
+	course := cs.CourseSchedule{}
 	if id != 0 {
 		if !cs.IsAssistant(sess.ID, id) {
 			template.RenderJSONResponse(w, new(template.Response).
@@ -295,8 +295,7 @@ func GetDetailByAdminHandler(w http.ResponseWriter, r *http.Request, ps httprout
 				AddError("You does not have permission"))
 			return
 		}
-		courseID, err := cs.GetCourseID(id)
-		courseName, err = cs.GetName(courseID)
+		course, err = cs.GetByScheduleID(id)
 		if err != nil {
 			template.RenderJSONResponse(w, new(template.Response).
 				SetCode(http.StatusBadRequest).
@@ -316,7 +315,7 @@ func GetDetailByAdminHandler(w http.ResponseWriter, r *http.Request, ps httprout
 		UpdatedDate: res.UpdatedAt.Format("Monday, 2 January 2006 15:04:05"),
 		Date:        res.UpdatedAt,
 		ScheduleID:  id,
-		CourseName:  courseName,
+		CourseName:  course.Course.Name,
 	}
 	template.RenderJSONResponse(w, new(template.Response).
 		SetCode(http.StatusOK).
