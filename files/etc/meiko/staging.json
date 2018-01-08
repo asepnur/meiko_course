@@ -3,12 +3,12 @@
         "port": ""
     },
     "database": {
-        "host": "us-cdbr-iron-east-05.cleardb.net",
+        "host": "rm-gs5nz90rte2tgj366to.mysql.singapore.rds.aliyuncs.com",
         "port": "3306",
-        "username": "b056cfdd1466e0",
-        "password": "b34f6efc",
+        "username": "meiko",
+        "password": "Qwerty1234",
         "driver": "mysql",
-        "database": "heroku_f39d37ae8e8fe47"
+        "database": "meiko"
     },
     "redis": {
         "address": "greeneye.redistogo.com:11420",

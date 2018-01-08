@@ -150,7 +150,7 @@ func RequestID(id []int64, isSort bool, column ...string) ([]UserReq, error) {
 	req.Header.Add("Content-Length", strconv.Itoa(len(params)))
 
 	client := http.Client{
-		Timeout: time.Second * 2,
+		Timeout: time.Second * 60,
 	}
 	resp, err := client.Do(req)
 	if err != nil {

@@ -30,7 +30,7 @@ func initRgxAsistant() {
 
 	user, err := usr.RequestID(userID, false)
 	if err != nil {
-		log.Fatalf("Bot init error: cannot get all assistant name")
+		log.Fatalf(err.Error())
 	}
 
 	// make []string{"Risal Falah", "Rifki Muhammad"} into []string{"risal", "falah", "rifki", "muhammad"}

@@ -3,10 +3,10 @@
         "port": "80"
     },
     "database": {
-        "host": "localhost",
+        "host": "rm-gs5nz90rte2tgj366to.mysql.singapore.rds.aliyuncs.com",
         "port": "3306",
         "username": "meiko",
-        "password": "Meiko@123",
+        "password": "Qwerty1234",
         "driver": "mysql",
         "database": "meiko"
     },

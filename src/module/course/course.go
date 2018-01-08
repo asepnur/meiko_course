@@ -38,6 +38,7 @@ func SelectScheduleIDByUserID(userID int64, status ...int8) ([]int64, error) {
 
 	var scheduleIDs []int64
 	query := fmt.Sprintf(`SELECT schedules_id FROM p_users_schedules WHERE users_id = (%d) %s;`, userID, st)
+	fmt.Println(query)
 	err := conn.DB.Select(&scheduleIDs, query)
 	if err != nil && err != sql.ErrNoRows {
 		return scheduleIDs, err
